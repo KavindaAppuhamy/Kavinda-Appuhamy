@@ -155,7 +155,7 @@ const HomeSection = ({ currentTypeText }) => {
 
               {/* Floating Badge - Responsive positioning and text */}
               <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-900 px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg animate-bounce animate-fadeInDown opacity-0 animation-delay-1100">
-                vailable
+                Available
               </div>
             </div>
           </div>
