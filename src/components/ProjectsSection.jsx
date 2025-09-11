@@ -11,9 +11,9 @@ const projects = [
     status: "Deployed",
     frontend: "https://github.com/KavindaAppuhamy/Project-LCCG-Frontend",
     backend: "https://github.com/KavindaAppuhamy/Project-LCCG-Backend",
-    demo: "https://cinnamonleos.org",
+    demo: "https://cinnamonleos.org", // Added Demo link
     gradient: "from-green-500 to-emerald-400",
-    image: "/Projects/LCCG.png",
+    image: "/Projects/LCCG.png"
   },
   {
     title: "Crystal Beauty Clear",
@@ -26,7 +26,7 @@ const projects = [
     backend: "https://github.com/KavindaAppuhamy/cbc-backend",
     demo: "https://cbc-website.com",
     gradient: "from-pink-400 to-purple-500",
-    image: "/Projects/CBC.png",
+    image: "/Projects/CBC.png"
   },
   {
     title: "DoMedia Job Assessment",
@@ -38,7 +38,7 @@ const projects = [
     frontend: "https://github.com/KavindaAppuhamy/Domedia-Assessment",
     demo: "https://kavindaappuhamy.github.io/Domedia-Assessment/",
     gradient: "from-indigo-500 to-purple-500",
-    image: "/Projects/DoMedia.png",
+    image: "/Projects/DoMedia.png"
   },
   {
     title: "Pic N Charge",
@@ -50,7 +50,7 @@ const projects = [
     frontend: "https://github.com/KavindaAppuhamy/PicNCharge",
     demo: "",
     gradient: "from-cyan-400 to-blue-500",
-    image: "/Projects/PicnCharge.png",
+    image: "/Projects/PicnCharge.png"
   },
   {
     title: "Pharmacy System",
@@ -62,7 +62,7 @@ const projects = [
     frontend: "https://github.com/KavindaAppuhamy/Hospital_Medicine_Management_System",
     demo: "",
     gradient: "from-blue-500 to-cyan-500",
-    image: "/Projects/Atom.png",
+    image: "/Projects/Atom.png"
   },
   {
     title: "NPI SPACE",
@@ -74,7 +74,7 @@ const projects = [
     frontend: "https://github.com/KavindaAppuhamy/NPISpace_ECN_Change_Management_System",
     demo: "",
     gradient: "from-blue-500 to-cyan-500",
-    image: "/Projects/NPI_SPACE.png",
+    image: "/Projects/NPI_SPACE.png"
   },
   {
     title: "Restaurant API",
@@ -87,28 +87,29 @@ const projects = [
     backend: "https://github.com/KavindaAppuhamy/REST_API_Microservices/tree/master/backend-microservices-rest-api",
     demo: "",
     gradient: "from-blue-500 to-cyan-500",
-    image: "/Projects/REST-API.png",
+    image: "/Projects/REST-API.png"
   },
 ];
 
 const categories = ["All", "Enterprise", "Web Development", "Desktop App", "Mobile App"];
 
-// Hook for scroll animation (kept from your original)
+// Custom hook for intersection observer
 const useIntersectionObserver = (options = {}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setIsVisible(true);
-          setHasAnimated(true);
-        }
-      },
-      { threshold: 0.1, rootMargin: "-50px 0px", ...options }
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !hasAnimated) {
+        setIsVisible(true);
+        setHasAnimated(true);
+      }
+    }, {
+      threshold: 0.1,
+      rootMargin: '-50px 0px',
+      ...options
+    });
 
     const currentRef = ref.current;
     if (currentRef) {
@@ -116,13 +117,16 @@ const useIntersectionObserver = (options = {}) => {
     }
 
     return () => {
-      if (currentRef) observer.unobserve(currentRef);
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
     };
   }, [hasAnimated, options]);
 
   return [ref, isVisible];
 };
 
+// Animated wrapper component for individual items
 const AnimatedItem = ({ children, delay = 0, className = "" }) => {
   const [ref, isVisible] = useIntersectionObserver();
 
@@ -130,9 +134,13 @@ const AnimatedItem = ({ children, delay = 0, className = "" }) => {
     <div
       ref={ref}
       className={`${className} transition-all duration-700 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-8'
       }`}
-      style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
+      style={{
+        transitionDelay: isVisible ? `${delay}ms` : '0ms'
+      }}
     >
       {children}
     </div>
@@ -141,38 +149,85 @@ const AnimatedItem = ({ children, delay = 0, className = "" }) => {
 
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [activeCard, setActiveCard] = useState(null);
-
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [clickedCards, setClickedCards] = useState(new Set());
   const categoriesRef = useRef(null);
-  const filteredProjects =
-    activeCategory === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
 
-  const isMobile =
-    typeof window !== "undefined" ? window.innerWidth < 768 : false;
+  const filteredProjects = activeCategory === "All" 
+    ? projects 
+    : projects.filter(project => project.category === activeCategory);
 
-  // Close overlay when clicking outside
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const handleClickOutside = (e) => {
-      if (
-        !e.target.closest(".project-card") &&
-        !e.target.closest(".overlay-content")
-      ) {
-        setActiveCard(null);
+  // Handle card click for mobile
+  const handleCardClick = (projectTitle, e) => {
+    // Only handle clicks on mobile (screen width < 768px)
+    if (window.innerWidth < 768) {
+      // Don't trigger if clicking on a link
+      if (e.target.closest('a')) {
+        return;
       }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isMobile]);
+      
+      setClickedCards(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(projectTitle)) {
+          newSet.delete(projectTitle);
+        } else {
+          newSet.add(projectTitle);
+        }
+        return newSet;
+      });
+    }
+  };
+
+  // Reset clicked cards when category changes
+  useEffect(() => {
+    setClickedCards(new Set());
+  }, [activeCategory]);
+
+  // Handle touch events for horizontal swipe
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - categoriesRef.current.offsetLeft);
+    setScrollLeft(categoriesRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - categoriesRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    categoriesRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Handle mouse events for horizontal swipe (for testing on desktop)
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - categoriesRef.current.offsetLeft);
+    setScrollLeft(categoriesRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const x = e.pageX - categoriesRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    categoriesRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
 
   return (
-    <section
-      id="projects"
-      className="min-h-screen bg-slate-800 px-4 md:px-16 py-24"
-    >
+    <section id="projects" className="min-h-screen bg-slate-800 px-4 md:px-16 py-24">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <AnimatedItem className="text-center mb-8 sm:mb-10 relative">
@@ -185,24 +240,40 @@ const ProjectsSection = () => {
             </h2>
           </div>
         </AnimatedItem>
-
-        {/* Category Filters */}
+          
+        {/* Category Filters - Horizontal Scrollable */}
         <AnimatedItem delay={200} className="mb-4 sm:mb-6">
           <div
             ref={categoriesRef}
             className="flex gap-2 xs:gap-3 sm:gap-4 pb-2 overflow-x-auto hide-scrollbar touch-pan-x
                       md:justify-center md:overflow-x-visible"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+              cursor: isDragging ? "grabbing" : "grab",
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
           >
             <div className="flex gap-2 xs:gap-3 sm:gap-4 min-w-max px-1 md:min-w-0">
               {categories.map((category, index) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`flex-shrink-0 px-3 xs:px-4 sm:px-5 md:px-6 py-2 rounded-full font-semibold transition-all duration-300 border-2 text-xs xs:text-sm sm:text-base whitespace-nowrap hover:scale-105 ${
+                  className={`flex-shrink-0 px-3 xs:px-4 sm:px-5 md:px-6 py-2 xs:py-2.5 sm:py-3 rounded-full font-semibold transition-all duration-300 border-2 text-xs xs:text-sm sm:text-base whitespace-nowrap transform hover:scale-105 ${
                     activeCategory === category
                       ? "bg-cyan-400 text-slate-900 border-cyan-400 shadow-lg"
                       : "bg-transparent text-gray-300 border-slate-600 hover:border-cyan-400 hover:text-cyan-400"
                   }`}
+                  style={{
+                    animationDelay: `${index * 100}ms`
+                  }}
                 >
                   {category}
                 </button>
@@ -211,47 +282,54 @@ const ProjectsSection = () => {
           </div>
         </AnimatedItem>
 
+        {/* Mobile instruction */}
+        <div className="md:hidden text-center mb-4">
+          <p className="text-gray-400 text-sm">
+            Tap on a card to view action buttons
+          </p>
+        </div>
+
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-4">
           {filteredProjects.map((project, index) => {
-            const isOpen = activeCard === index;
-
+            const isClicked = clickedCards.has(project.title);
+            
             return (
-              <AnimatedItem
-                key={project.title}
+              <AnimatedItem 
+                key={`${project.title}-${activeCategory}`} 
                 delay={index * 100}
-                className="project-card group relative overflow-hidden rounded-xl bg-slate-700 hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-500 hover:-translate-y-1"
-                onClick={() => {
-                  if (isMobile) {
-                    setActiveCard(isOpen ? null : index);
-                  }
-                }}
+                className="group relative overflow-hidden rounded-xl bg-slate-700 hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-500 hover:-translate-y-1 cursor-pointer md:cursor-default"
+                onClick={(e) => handleCardClick(project.title, e)}
               >
-                {/* Project Image */}
+                {/* Project Image/Placeholder */}
                 <div className="aspect-[3/2] relative overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                  />
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className={`w-full h-full bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
+                      <span className="text-lg font-bold text-white">{project.title}</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-black/30"></div>
                 </div>
-
-                {/* Overlay */}
-                <div
-                  className={`
-                    absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent 
-                    transition-all duration-500 flex flex-col justify-end p-4 overlay-content
-                    ${
-                      isMobile
-                        ? isOpen
-                          ? "opacity-100"
-                          : "opacity-0"
-                        : "opacity-0 group-hover:opacity-100"
-                    }
-                  `}
-                >
-                  <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
+                
+                {/* Content Overlay - Always visible on desktop, toggle on mobile */}
+                <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent 
+                  ${window.innerWidth >= 768 
+                    ? 'opacity-0 group-hover:opacity-100' 
+                    : isClicked ? 'opacity-100' : 'opacity-0'
+                  } 
+                  transition-all duration-500 flex flex-col justify-end p-4`}>
+                  <div className={`transform 
+                    ${window.innerWidth >= 768 
+                      ? 'translate-y-3 group-hover:translate-y-0' 
+                      : isClicked ? 'translate-y-0' : 'translate-y-3'
+                    } 
+                    transition-transform duration-500`}>
                     <div className="text-xs text-cyan-400 font-semibold mb-1">
                       {project.tech}
                     </div>
@@ -269,7 +347,7 @@ const ProjectsSection = () => {
                           href={project.frontend}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-white text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-400 transition"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-white text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-400 transition-colors duration-300 transform hover:scale-105"
                         >
                           <Github size={12} />
                           <span>Frontend</span>
@@ -280,18 +358,36 @@ const ProjectsSection = () => {
                           href={project.backend}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-white text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-400 transition"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-white text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-400 transition-colors duration-300 transform hover:scale-105"
                         >
                           <Github size={12} />
                           <span>Backend</span>
                         </a>
                       )}
+
+                      {/* Status Button */}
+                      {project.status && (
+                        <span
+                          className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
+                            project.status === "Deployed"
+                              ? "bg-green-500 text-white"
+                              : project.status === "Developing"
+                              ? "bg-yellow-400 text-slate-900"
+                              : project.status === "Maintaining"
+                              ? "bg-blue-500 text-white"
+                              : "bg-gray-500 text-white"
+                          }`}
+                        >
+                          {project.status}
+                        </span>
+                      )}
+                      {/* Live Demo Button */}
                       {project.demo && (
                         <a
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-cyan-400 text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-500 transition"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 bg-cyan-400 text-slate-900 rounded-full text-xs font-semibold hover:bg-cyan-500 transition-colors duration-300 transform hover:scale-105"
                         >
                           <ExternalLink size={12} />
                           <span>Demo</span>
@@ -301,24 +397,46 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                {/* Badge */}
+                {/* Corner Badge */}
                 <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-sm text-cyan-400 px-2 py-1 rounded-full text-xs font-medium">
                   {project.category}
+                </div>
+
+                {/* Mobile Click Indicator */}
+                <div className="md:hidden absolute top-3 right-3 bg-slate-900/80 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs">
+                  {isClicked ? '−' : '+'}
                 </div>
               </AnimatedItem>
             );
           })}
         </div>
+
+        {/* Bottom CTA */}
+        <AnimatedItem delay={400} className="text-center mt-16">
+          <p className="text-gray-400 text-lg mb-6">
+            Want to see more of my work?
+          </p>
+          <a
+            href="https://github.com/KavindaAppuhamy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-400/50 transition-all duration-300 hover:-translate-y-1 transform hover:scale-105"
+          >
+            <Github size={20} />
+            <span>Visit My GitHub</span>
+            <ExternalLink size={18} />
+          </a>
+        </AnimatedItem>
       </div>
 
-      {/* Custom CSS */}
+      {/* Custom CSS for hiding scrollbar */}
       <style jsx="true">{`
         .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
         }
         .hide-scrollbar::-webkit-scrollbar {
-          display: none;
+          display: none;  /* Chrome, Safari and Opera */
         }
       `}</style>
     </section>
