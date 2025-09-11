@@ -280,7 +280,9 @@ const ProjectsSection = () => {
               </div>
               
               {/* Content Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent 
+                opacity-100 sm:opacity-0 sm:group-hover:opacity-100 
+                transition-all duration-500 flex flex-col justify-end p-4">
                 <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
                   <div className="text-xs text-cyan-400 font-semibold mb-1">
                     {project.tech}
