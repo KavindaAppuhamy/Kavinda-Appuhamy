@@ -14,7 +14,7 @@ const Header = ({ isScrolled, activeSection, isMenuOpen, setIsMenuOpen }) => {
     >
       <nav className="flex justify-between items-center py-4 px-4 md:px-16">
         <img
-          src="/Logo.png"
+          src="/LogoH5.png"
           alt="Logo"
           className="h-12 w-12 object-contain"
         />
