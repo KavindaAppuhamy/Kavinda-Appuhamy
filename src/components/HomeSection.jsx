@@ -85,7 +85,7 @@ const HomeSection = ({ currentTypeText }) => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center w-80 mx-auto lg:mx-0 gap-4 sm:gap-4 pt-2">
               <a
-                href="https://drive.google.com/uc?export=download&id=12tcNv78osv7a-0DwJ-AJKL-JR6EVAbuc"
+                href="https://drive.google.com/uc?export=download&id=1-kdvLL2043cgRONyCW2rpBkXkmA7horT"
                 download="Kavinda Appuhamy - CV.pdf"
                 className="inline-flex items-center justify-center gap-2 bg-cyan-400 text-slate-900 px-4 py-3.5 sm:px-8 sm:py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-400/50 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900 text-sm sm:text-base w-full sm:w-fit animate-fadeInUp opacity-0 animation-delay-500"
               >
@@ -372,7 +372,7 @@ const HomeSection = ({ currentTypeText }) => {
                   className="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                 >
                   <Phone size={20} />
-                  <span>+94 76 921 0099</span>
+                  <span>Call Me</span>
                 </button>
 
                 {/* WhatsApp */}
@@ -381,7 +381,7 @@ const HomeSection = ({ currentTypeText }) => {
                   className="w-full flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-slate-800"
                 >
                   <MessageCircle size={20} />
-                  <span>WhatsApp</span>
+                  <span>WhatsApp Me</span>
                 </button>
 
                 {/* Email */}
