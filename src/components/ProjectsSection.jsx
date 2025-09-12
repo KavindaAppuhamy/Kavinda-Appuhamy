@@ -24,7 +24,7 @@ const projects = [
     status: "Developing",
     frontend: "https://github.com/KavindaAppuhamy/cbc-frontend",
     backend: "https://github.com/KavindaAppuhamy/cbc-backend",
-    demo: "https://cbc-website.com",
+    demo: "",
     gradient: "from-pink-400 to-purple-500",
     image: "/Projects/CBC.png"
   },
