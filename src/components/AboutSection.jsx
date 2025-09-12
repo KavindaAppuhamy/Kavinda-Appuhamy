@@ -167,10 +167,13 @@ const AboutSection = () => {
               {/* Description */}
               <div className="space-y-3 mb-6">
                 <p className="text-gray-300 leading-relaxed text-sm text-justify">
-                  I'm a third-year BSc (Hons) Computing student at Coventry University and a MERN Full-Stack Developer. I specialize in building responsive web apps with MongoDB, Express, React, and Node.js, as well as desktop applications in Java and C# .NET. I focus on creating efficient, user-friendly solutions for projects like hotel booking systems and microservices.
+                  I am a self-motivated and collaborative developer with a strong passion for exploring emerging technologies such as Tailwind CSS and Supabase. Currently pursuing a BSc (Hons) in Computing at Coventry University, I specialize as a MERN Full-Stack Developer, building responsive and scalable web applications using MongoDB, Express, React, Node.js and SpringBoot.
                 </p>
                 <p className="text-gray-300 leading-relaxed text-sm text-justify">
-                  I am a self-motivated, collaborative developer who enjoys exploring emerging technologies like Tailwind CSS and Supabase. I focus on creating functional, intuitive, and scalable applications, thriving in innovative, team-oriented environments and delivering meaningful impact with every project.
+                  Beyond web development, I also have hands-on experience creating desktop applications in Java and C# (.NET), allowing me to deliver versatile and efficient solutions across platforms. My focus lies in developing functional, intuitive, and user-friendly applications that make a meaningful impact.
+                </p>
+                <p className="text-gray-300 leading-relaxed text-sm text-justify">
+                  I have worked on a variety of projects, including e-commerce websites (Concept) such as “Crystal Beauty Clear” and microservices-based systems, where I applied problem-solving skills, modern design practices, and team collaboration to achieve real-world results. I thrive in innovative, team-oriented environments and am driven to continuously learn, adapt, and create solutions that matter.
                 </p>
               </div>
 
@@ -185,13 +188,13 @@ const AboutSection = () => {
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <GraduationCap className="text-cyan-400 w-4 h-4 flex-shrink-0" />
                   <span className="text-white text-sm font-medium">Degree:</span>
-                  <span className="text-gray-300 text-sm">BSc (Hons) Computing</span>
+                  <span className="text-gray-300 text-sm">BSc (Hons) Computing (Reading)</span>
                 </div>
                 
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <Briefcase className="text-cyan-400 w-4 h-4 flex-shrink-0" />
                   <span className="text-white text-sm font-medium">Experience:</span>
-                  <span className="text-gray-300 text-sm">2+ Years</span>
+                  <span className="text-gray-300 text-sm">1+ Years</span>
                 </div>
                 
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
