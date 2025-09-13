@@ -36,7 +36,7 @@ const SkillsSection = () => {
      // Languages
     {
       name: "React",
-      level: "85%",
+      level: "70%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
       color: "from-blue-400 to-blue-600",
       category: "Frameworks"
@@ -50,28 +50,28 @@ const SkillsSection = () => {
     },
     {
       name: "Express.js",
-      level: "80%",
+      level: "50%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
       color: "from-gray-600 to-gray-800",
       category: "Frameworks"
     },
     {
       name: "Node.js",
-      level: "80%",
+      level: "60%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
       color: "from-green-400 to-green-600",
       category: "Frameworks"
     },
     {
       name: "Tailwind CSS",
-      level: "85%",
+      level: "60%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
       color: "from-cyan-400 to-blue-500",
       category: "Frameworks"
     },
     {
       name: "JavaScript",
-      level: "90%",
+      level: "60%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
       color: "from-yellow-400 to-yellow-600",
       category: "Languages"
@@ -121,14 +121,14 @@ const SkillsSection = () => {
     },
     {
       name: "HTML5",
-      level: "95%",
+      level: "80%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
       color: "from-orange-400 to-red-600",
       category: "Languages"
     },
     {
       name: "CSS3",
-      level: "90%",
+      level: "80%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
       color: "from-blue-400 to-blue-600",
       category: "Languages"
@@ -137,7 +137,7 @@ const SkillsSection = () => {
     // UI/UX
     {
       name: "Figma",
-      level: "80%",
+      level: "60%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
       color: "from-purple-400 to-pink-500",
       category: "UI/UX"
@@ -145,14 +145,14 @@ const SkillsSection = () => {
     // Cloud
     {
       name: "AWS",
-      level: "65%",
+      level: "25%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
       color: "from-orange-500 to-yellow-500",
       category: "Cloud"
     },
     {
       name: "Docker",
-      level: "70%",
+      level: "40%",
       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
       color: "from-blue-400 to-blue-600",
       category: "Cloud"
