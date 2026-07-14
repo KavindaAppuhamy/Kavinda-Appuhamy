@@ -188,7 +188,7 @@ const AboutSection = () => {
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <GraduationCap className="text-cyan-400 w-4 h-4 flex-shrink-0" />
                   <span className="text-white text-sm font-medium">Degree:</span>
-                  <span className="text-gray-300 text-sm">BSc (Hons) Computing (Reading)</span>
+                  <span className="text-gray-300 text-sm">BSc (Hons) in Computing (Reading)</span>
                 </div>
                 
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
