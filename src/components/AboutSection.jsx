@@ -96,7 +96,7 @@ const AboutSection = () => {
           >
             {/* Title */}
             <h3 className="text-2xl md:text-3xl lg:text-2xl font-bold text-white mb-4">
-              MERN FullStack Developer
+              FullStack Software Developer
             </h3>
 
             {/* Description */}
@@ -161,7 +161,7 @@ const AboutSection = () => {
             <div className="bg-slate-700/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-600/20 shadow-xl hover:shadow-2xl hover:shadow-cyan-400/10 transition-all duration-300 hover:scale-[1.02]">
               {/* Title */}
               <h3 className="text-xl font-bold text-white mb-4 text-center">
-                MERN FullStack Developer
+                FullStack Software Developer
               </h3>
 
               {/* Description */}
@@ -194,7 +194,7 @@ const AboutSection = () => {
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
                   <Briefcase className="text-cyan-400 w-4 h-4 flex-shrink-0" />
                   <span className="text-white text-sm font-medium">Experience:</span>
-                  <span className="text-gray-300 text-sm">1+ Years</span>
+                  <span className="text-gray-300 text-sm">2+ Years</span>
                 </div>
                 
                 <div className="flex items-center gap-3 hover:translate-x-1 transition-transform duration-300">
