@@ -122,7 +122,7 @@ const AboutSection = () => {
                 
                 <div className="flex items-center justify-start gap-3 hover:translate-x-2 transition-transform duration-300">
                   <Briefcase className="text-cyan-400 w-5 h-5 flex-shrink-0" />
-                  <span className="text-white text-base md:text-1xl">1+ Years Experience</span>
+                  <span className="text-white text-base md:text-1xl">2+ Years Experience</span>
                 </div>
                 
                 <div className="flex items-center justify-start gap-3 hover:translate-x-2 transition-transform duration-300">

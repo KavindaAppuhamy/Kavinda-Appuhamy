@@ -19,6 +19,7 @@ const Portfolio = () => {
   const [showScrollUp, setShowScrollUp] = useState(false); // Scroll-up button state
 
   const typeTexts = [
+    "Full Stack Developer",
     "MERN Stack Developer",
     "Java Fullstack Developer",
     "Video Creator",
