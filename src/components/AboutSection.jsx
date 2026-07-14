@@ -134,7 +134,7 @@ const AboutSection = () => {
               <div className="space-y-4 md:space-y-5">
                 <div className="flex items-center justify-start gap-3 hover:translate-x-2 transition-transform duration-300">
                   <GraduationCap className="text-cyan-400 w-5 h-5 flex-shrink-0" />
-                  <span className="text-white text-base md:text-1xl">BSc (Hons) Computing (Reading)</span>
+                  <span className="text-white text-base md:text-1xl">BSc (Hons) in Computing (Reading)</span>
                 </div>
                 
                 <div className="flex items-center justify-start gap-3 hover:translate-x-2 transition-transform duration-300">
