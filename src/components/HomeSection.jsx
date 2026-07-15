@@ -85,7 +85,8 @@ const HomeSection = ({ currentTypeText }) => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center w-80 mx-auto lg:mx-0 gap-4 sm:gap-4 pt-2">
               <a
-                href="https://drive.google.com/uc?export=download&id=1GeVPk9SZ27NA2a0DkDpgrVQCovXQ5VKd"
+                href="https://drive.google.com/uc?export=download&id=15i3dO2RjNyjj3GLEW-RolVh8eY3s3N97"
+               
                 
                 download="Kavinda Appuhamy - CV.pdf"
                 className="inline-flex items-center justify-center gap-2 bg-cyan-400 text-slate-900 px-4 py-3.5 sm:px-8 sm:py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-400/50 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-900 text-sm sm:text-base w-full sm:w-fit animate-fadeInUp opacity-0 animation-delay-500"
